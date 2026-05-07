@@ -365,7 +365,7 @@ body{
   </div>
 
   <!-- Success -->
-  <div class="msg success" id="msgSuccess">
+  <div class="msg" id="msgSuccess" style="display:none">
     <div class="msg-icon">🎉</div>
     <div class="msg-title">Registration Confirmed!</div>
     <div class="msg-text">Your QR Code Entry Pass has been sent to your registered email address. Please check your inbox.</div>
@@ -378,7 +378,7 @@ body{
   </div>
 
   <!-- Duplicate -->
-  <div class="msg duplicate" id="msgDuplicate">
+  <div class="msg" id="msgDuplicate" style="display:none">
     <div class="msg-icon">⚠️</div>
     <div class="msg-title">Already Registered!</div>
     <div class="msg-text">You have already registered for this event using this mobile number or email address.</div>
@@ -390,7 +390,7 @@ body{
   </div>
 
   <!-- Error -->
-  <div class="msg error" id="msgError">
+  <div class="msg" id="msgError" style="display:none">
     <div class="msg-icon">❌</div>
     <div class="msg-title">Something Went Wrong</div>
     <div class="msg-text" id="errorText">Please try again or contact us at +91 6202958143</div>
@@ -459,14 +459,14 @@ function submitForm() {
 function showSuccess(entryId) {
   document.getElementById('formCard').style.display = 'none';
   document.getElementById('successEntryId').innerText = 'Entry ID: ' + entryId;
-  document.getElementById('msgSuccess').className = 'msg success';
+  var ms = document.getElementById('msgSuccess'); ms.style.display='block'; ms.className='msg success';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function showDuplicate(entryId) {
   document.getElementById('formCard').style.display = 'none';
   document.getElementById('dupEntryId').innerText = entryId ? 'Your Entry ID: ' + entryId : '';
-  document.getElementById('msgDuplicate').className = 'msg duplicate';
+  var md = document.getElementById('msgDuplicate'); md.style.display='block'; md.className='msg duplicate';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -475,7 +475,7 @@ function showError(msg) {
   btn.disabled = false;
   btn.innerHTML = '🎟️ &nbsp; Register &amp; Get Entry Pass';
   document.getElementById('errorText').innerText = msg || 'Please try again.';
-  document.getElementById('msgError').className = 'msg error';
+  var me = document.getElementById('msgError'); me.style.display='block'; me.className='msg error';
 }
 
 document.getElementById('mobile').addEventListener('input', function(){
