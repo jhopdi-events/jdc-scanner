@@ -149,18 +149,14 @@ function nextScan(){
 }
 
 function callBackend(qrCode){
-  try{
-    google.script.run
-      .withSuccessHandler(showResult)
-      .withFailureHandler(function(err){
-        setStatus('Server error: '+(err.message||err),'error');
-        document.getElementById('btnNext').style.display='block';
-      })
-      .checkQRCode(qrCode);
-  }catch(e){
-    setStatus('Open via Web App URL only','error');
-    document.getElementById('btnNext').style.display='block';
-  }
+  var url="https://script.google.com/macros/s/AKfycbwOorIpg6aElyFYxlu0JpP5QSH8KnTyU4DwkuHyCn_PK5Y2WSvax7ZGYpHZVMfFs2aMXA/exec?action=check&qr="+encodeURIComponent(qrCode);
+  fetch(url,{redirect:'follow'})
+    .then(function(res){return res.json();})
+    .then(function(data){showResult(data);})
+    .catch(function(){
+      setStatus('Connection error. Check internet.','error');
+      document.getElementById('btnNext').style.display='block';
+    });
 }
 
 function showResult(data){
