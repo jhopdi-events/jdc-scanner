@@ -281,7 +281,6 @@ body{
 
 <!-- ── BANNER IMAGE ── -->
 <div class="banner">
-  <!-- Replace this src with your actual invitation banner image -->
   <img
     src="dwarkapuri-project-1.png"
     alt="Meet & Greet 2026 — Jhopdi.com × Dwarka Puri Vrindavan"
@@ -336,6 +335,12 @@ body{
     <div class="field">
       <label>Company / Firm Name</label>
       <input type="text" id="company" placeholder="Optional" />
+    </div>
+
+    <!-- ── RM NAME FIELD (NEW) ── -->
+    <div class="field">
+      <label>RM Name <span class="req">*</span></label>
+      <input type="text" id="rm" placeholder="Enter RM name" />
     </div>
 
     <div class="field">
@@ -407,12 +412,14 @@ function submitForm() {
   var mobile  = document.getElementById('mobile').value.trim();
   var email   = document.getElementById('email').value.trim();
   var company = document.getElementById('company').value.trim();
+  var rm      = document.getElementById('rm').value.trim();   // ← NEW
   var attend  = document.getElementById('attend').value;
   var consent = document.getElementById('consent').checked;
 
   if (!name)                          { alert('Please enter your full name.');                 return; }
   if (!mobile || mobile.length < 10)  { alert('Please enter a valid 10-digit mobile number.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.');          return; }
+  if (!rm)                            { alert('Please enter RM name.');                        return; } // ← NEW
   if (!consent)                       { alert('Please agree to receive updates.');             return; }
 
   var btn = document.getElementById('submitBtn');
@@ -434,6 +441,7 @@ function submitForm() {
           "&mobile="  + encodeURIComponent(mobile) +
           "&email="   + encodeURIComponent(email) +
           "&company=" + encodeURIComponent(company || 'N/A') +
+          "&rm="      + encodeURIComponent(rm) +              // ← NEW
           "&attend="  + encodeURIComponent(attend);
 
         fetch(url, { redirect:'follow' })
